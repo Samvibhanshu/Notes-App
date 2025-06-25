@@ -1,4 +1,4 @@
-#📝 Pastes App (Frontend Only)
+#Pastes App (Frontend Only)
 A simple Pastebin-style web app frontend where users can create, view, and manage text pastes. Built with React and styled using Tailwind CSS.
 
 Features:
