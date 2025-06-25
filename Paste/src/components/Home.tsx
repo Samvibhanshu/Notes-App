@@ -62,7 +62,7 @@ const Home = () => {
 
       </button>
     </div>
-    <div> 
+    <div className='w-full'> 
         <textarea 
             value={value}
             placeholder="likho kuch"
