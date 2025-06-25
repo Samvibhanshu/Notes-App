@@ -10,7 +10,6 @@ export const pasteSlice = createSlice({
   },
   reducers: {
     addToPastes: (state,action) => {
-        //add check for existing paste
         const paste = action.payload;
         state.pastes.push(paste);
         localStorage.setItem('pastes',
