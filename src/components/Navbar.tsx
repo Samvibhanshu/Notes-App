@@ -11,8 +11,8 @@ const Navbar = () => {
             </NavLink>
         
             <NavLink 
-            to="/pastes">
-                Pastes
+            to="/notes">
+                Notes
             </NavLink>
        
     </div>

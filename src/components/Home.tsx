@@ -1,42 +1,42 @@
 import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToPastes, updatePastes } from '../Redux/pasteSlice';
+import { addToNotes, updateNotes } from '../Redux/noteSlice';
 import type { RootState } from '../store';
 
 const Home = () => {
     const[title, setTitle]=useState('');
     const[value,setValue]=useState('');
     const [searchP,setSearchP]= useSearchParams();
-    const pasteId = searchP.get("pasteId");
+    const noteId = searchP.get("noteId");
     const dispatch = useDispatch();
-    const allPastes = useSelector((state: RootState) => state.paste.pastes)
+    const allNotes = useSelector((state: RootState) => state.note.notes)
 
    
     
 
         useEffect(()=>{
-            if(pasteId){
-                const paste = allPastes.find((p: {_id:string})=>
-                p._id === pasteId);
-                setTitle(paste.title);
-                setValue(paste.content);
+            if(noteId){
+                const note = allNotes.find((p: {_id:string})=>
+                p._id === noteId);
+                setTitle(note.title);
+                setValue(note.content);
             }
-        },[pasteId])
+        },[noteId])
 
      function CreateP(){
-        const paste={
+        const note={
             title:title,
             content:value,
-            _id:pasteId || Date.now().toString(10),
+            _id:noteId || Date.now().toString(10),
             createdAt: new Date().toString(),
         }    
-        if(pasteId){
+        if(noteId){
             //update
-            dispatch(updatePastes(paste));
+            dispatch(updateNotes(note));
         }else{
             //create
-            dispatch(addToPastes(paste))
+            dispatch(addToNotes(note))
         }
 
         //after creation or updation
@@ -57,7 +57,7 @@ const Home = () => {
 
       <button onClick={CreateP} className='height:1r'>
         {
-            pasteId? 'Update Paste' : 'Create Paste'
+            noteId? 'Update Note' : 'Create Note'
         }
 
       </button>
