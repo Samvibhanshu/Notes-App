@@ -30,6 +30,7 @@ const Note= () => {
 
   function handleDelete(noteId: string) {
     dispatch(removeFromNotes(noteId));
+    toast('Note deleted');
   }
 
   return (

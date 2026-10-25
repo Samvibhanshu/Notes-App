@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToNotes, updateNotes } from '../Redux/noteSlice';
 import type { RootState } from '../store';
+import toast from 'react-hot-toast';
 
 const Home = () => {
     const[title, setTitle]=useState('');
@@ -16,13 +17,17 @@ const Home = () => {
     
 
         useEffect(()=>{
-            if(noteId){
-                const note = allNotes.find((p: {_id:string})=>
-                p._id === noteId);
+            if(!noteId) return;
+            const note = allNotes.find((p) => p._id === noteId);
+            if(note){
                 setTitle(note.title);
                 setValue(note.content);
+            } else {
+                // stale edit link (note deleted): fall back to creating a new note instead of crashing
+                toast.error("That note no longer exists");
+                setSearchP('');
             }
-        },[noteId])
+        },[noteId, allNotes, setSearchP])
 
      function CreateP(){
         const note={
@@ -34,9 +39,11 @@ const Home = () => {
         if(noteId){
             //update
             dispatch(updateNotes(note));
+            toast("Note updated");
         }else{
             //create
-            dispatch(addToNotes(note))
+            dispatch(addToNotes(note));
+            toast("Note created");
         }
 
         //after creation or updation
